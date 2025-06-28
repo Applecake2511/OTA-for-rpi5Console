@@ -1,0 +1,10 @@
+#!/bin/bash
+ARCH="rpi5"
+CHANNEL="stable"
+BASE_URL="https://applecake2511.github.io/batocera-updates"
+echo "Starte OTA-Update von $BASE_URL/$ARCH/$CHANNEL/last/ ..."
+FILE=$(curl -s $BASE_URL/$ARCH/$CHANNEL/last/ | grep -o 'href="batocera-.*\.tar.xz"' | sed -e 's/^href=\"//' -e 's/\"$//')
+URL="$BASE_URL/$ARCH/$CHANNEL/last/$FILE"
+echo "Download: $URL"
+curl -L -o /userdata/system/upgrade/$FILE "$URL"
+echo "Upgrade-Paket gespeichert. Bitte neu starten."
